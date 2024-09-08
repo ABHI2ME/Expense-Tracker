@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.navbar {
+  display: flex;
+  height: 4.6rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  padding: 1rem;
+  color: white;
+  z-index: 1000;
+
+}
+
+.navbar-logo {
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  font-family: "DM Sans", sans-serif;     
+  display: flex;
+  align-items: center; /* Centers links and buttons vertically */
+  gap: 1rem;
+}
+
+.navbar-links a {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.8rem 1rem; /* Add padding to make it look like a button */
+  background: none;
+  border: none;
+}
+
+.navbar-links button {
+  color: black;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  background-color : white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-links a:hover{
+  background-color: #444;
+  border: none;
+  border-radius: 5px;
+}
+.add-part{
+  font-family: "DM Sans", sans-serif;   
+   width: 100%;
+   height: 6rem;
+   background: transparent;
+   display: flex;
+   align-items: center;
+
+   margin-top: 1.3rem;
+   margin-left: 6rem;
+
+
+}
+.add-part-box{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.add-part-text{
+   display: inline-flex;
+   font-family: "DM Sans", sans-serif;   
+   font-size: 2rem;
+   width: 19rem;
+   align-items: center;
+
+
+}
+.add-part-btn{
+  width: auto;
+  /* margin-left: 3rem; */
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+/* background-color: red; */
+  transition: 0.25s background-color ,;
+  
+}
+.add-part-btn-i{
+  height: 2.8rem;
+  
+}
+
+.add-part-btn:hover{
+  background-color: black;
+   color: white;
+}
+.expense-div-continer{
+  margin-top: 0.5rem;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(0, 0, 0, 0.795);
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.expense-div-created{
+  margin-top: 2rem;
+  width: 94%;
+  height: 3.7rem;
+  background-color: white;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: 6fr 1fr 1fr;
+
+}
+.expense-div-created-description{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: black;
+  margin-left: 0.5rem;
+  padding: 0.5rem 1rem;
+  height: 100%;
+  overflow-y: scroll;
+}
+.expense-div-created-date{
+ color: black;
+ height: 100%;
+ display: flex;
+ justify-content: center;
+ align-items: center ;
+}
+.expense-div-created-bill{
+color: black;
+background-color: rgb(214, 207, 207);
+height: 100%;
+}
