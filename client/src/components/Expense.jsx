@@ -1,29 +1,41 @@
-import React , {useState ,   useEffect} from 'react'
+import React , {useState ,   useEffect , useContext} from 'react'
 import '../App.css' ;
 import { FiPlus } from "react-icons/fi";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 import { useNavigate , useLocation } from 'react-router-dom';
 import  Popup   from "./Popup";
-
-
-
-
-
+import {Context} from "./Context"
 
 
 
 const Expense = () => {
       
       const [isPopUp , setPopUp] = useState(false) ;
-      const [divData , setDivData] = useState([]) ;
+      const [divData , setDivData] = useState([]);
+      const [exactTime , setExactTime] = useState("") ;
 
       const navigation = useNavigate();     
-      const location = useLocation() ;      // way  to recieve the state along with navigating to other page 
-      const details = (location.state && location.state.details) || [];
-      console.log("here" , details[0]) ;
-     // if(details.length !== 0 && details !== undefined){
-     //      const val = details[0] ;
-     //      setDivData([...divData , val]) ;
-     // }
+     //  const location = useLocation() ;      // way  to recieve the state along with navigating to other page 
+  
+
+     useEffect(() => {
+          
+          const data = JSON.parse(localStorage.getItem("data"));
+
+            if(data != null){
+             setDivData(data);
+            }
+
+        }, []);
+
+        
+  
+
+
+
+        console.log("divdata length outside " ,  divData.length) ;
+  
+      
    
      
 
@@ -67,18 +79,21 @@ const Expense = () => {
                
                {/* divs for the expense */}
                <div className= 'expense-div-continer'>
-                     <div className='expense-div-created'>
-                          <div className='expense-div-created-description'>
-                           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nobis eveniet temporibus nulla amet exercitationem sint quidem quia quisquam aliquam tenetur eius neque fugit dolorum expedita deserunt, 
-                     
-                          </div>
-                          <div className='expense-div-created-date'>
-                               22-nov-2024
-                           </div>
-                          <div className='expense-div-created-bill'>
-                             
-                          </div>
-                     </div>
+               {divData.length > 0 ? (
+                         divData.map((item, index) => (
+                              <div key={index} className='expense-div-created'>
+                              <div className='expense-div-created-description'>
+                                   {item.descriptition}
+                              </div>
+                              <div className='expense-div-created-date'>
+                                   {item.time}
+                              </div>
+                              <div className='expense-div-created-bill'>
+                                   <FaIndianRupeeSign className='expense-div-created-bill-i' />{item.amount}
+                              </div>
+                              </div>
+                         ))
+                         ) : []} ;
                </div>
 
                {/* expense popup */}

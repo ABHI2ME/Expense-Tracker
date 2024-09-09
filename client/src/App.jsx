@@ -4,11 +4,13 @@ import Login from "./components/Login";
 import Register from "./components/Register" ;
 import Popup from "./components/Popup" 
 import { BrowserRouter as Router , Routes , Route} from 'react-router-dom';
+import {DetailsProvider} from "./components/Context"
 
 
 const App = () => {
   return (
     <>
+      <DetailsProvider>
       <Router>
         <Routes>
             <Route path='/' element ={<Expense />}  />
@@ -19,6 +21,7 @@ const App = () => {
             
         </Routes>
       </Router>
+      </DetailsProvider>
     </>
   )
 }

@@ -1,19 +1,18 @@
-import React , {useEffect, useState} from 'react';
+import React , {useEffect, useState , createContext , useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiPlus } from "react-icons/fi";
 import styles from './popup.module.css';
+import {Context} from "./Context"
+
 
 
 const Popup = () => {
    const navigation = useNavigate() ; 
    const [descriptition , setDescription] = useState("") ;
    const [amount , setAmount] = useState("") ;
-   const [details , setDetails] = useState([]) ;
-  
-  // useEffect(()=>{
-  //   console.log(details) ;
-  //  } , [details]) ;
+   const {details  , setDetails} = useContext(Context) ;
 
+   
    function saveDetails(){
       let descr ;
       let amt ;
@@ -22,22 +21,34 @@ const Popup = () => {
       const day = date.getDate() ;
       const month = date.toLocaleString('default', { month: 'short' });
       const year  = date.getFullYear();
+      const exactTime = date.getMilliseconds() ;
       let moment = `${day}-${month}-${year}` ;
-      if(descriptition!== "" && amount !== ""){
+      if(descriptition !== "" && amount !== ""){
          descr = descriptition ;
          amt = amount ;
          val = {
              descriptition : descr , 
              amount :  amt , 
-             time : moment
+             time : moment , 
+             watch : exactTime 
          }
          console.log(descr,  amt) ;
-         setDetails((PriviousDetail)=>[...PriviousDetail , val]) ;
+        //  setDetails((PriviousDetail)=>[...PriviousDetail , val]) ;
+         setDetails(val) ;
          setDescription("") ;
          setAmount("") ;
-         setTimeout(() => {
-          navigation("/" , { state: { details: [...details, val]} })}, 100);  // the new thing to learn
-         console.log(details);
+        //  setTimeout(() => {
+        //   navigation("/" )}, 100);  // the new thing to learn
+        let data = JSON.parse(localStorage.getItem("data")) ;
+        if(data == null || data.length >0){
+           if(data == null )data = [val];
+           else data.push(val);       
+          localStorage.setItem("data" ,JSON.stringify(data) ) ;
+          setTimeout(() => {
+          navigation("/" )}, 100);
+        }
+          
+         console.log("from popup " , details);
       }
    }
    
