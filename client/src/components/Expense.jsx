@@ -1,8 +1,45 @@
-import React from 'react'
+import React , {useState ,   useEffect} from 'react'
 import '../App.css' ;
 import { FiPlus } from "react-icons/fi";
+import { useNavigate , useLocation } from 'react-router-dom';
+import  Popup   from "./Popup";
+
+
+
+
+
+
+
 
 const Expense = () => {
+      
+      const [isPopUp , setPopUp] = useState(false) ;
+      const [divData , setDivData] = useState([]) ;
+
+      const navigation = useNavigate();     
+      const location = useLocation() ;      // way  to recieve the state along with navigating to other page 
+      const details = (location.state && location.state.details) || [];
+      console.log("here" , details[0]) ;
+     // if(details.length !== 0 && details !== undefined){
+     //      const val = details[0] ;
+     //      setDivData([...divData , val]) ;
+     // }
+   
+     
+
+      const toLogin = () =>{
+           navigation("/login");
+      }
+
+      const toRegister = () =>{
+            navigation("/register");
+      }
+
+      const addPartBtnClick =()=>{
+           navigation("/popup")
+      } ;
+
+
     return (
         <> 
            {/* made container here */}
@@ -15,8 +52,8 @@ const Expense = () => {
                      <div className='navbar-links'>
                           <a href='/'>Home</a>
                           <a href='/'>About</a>
-                          <button>Login</button>
-                          <button>Sign up</button>
+                          <button  onClick={() => toLogin()}  >Login</button>
+                          <button  onClick={() => toRegister()}>Sign up</button>
                      </div>
                </div>
        
@@ -24,7 +61,7 @@ const Expense = () => {
                <div className='add-part'>
                      <div className='add-part-box'>
                            <span className='add-part-text'>Add new expense</span>
-                           <button className='add-part-btn' ><FiPlus className='add-part-btn-i'/></button>
+                           <button className='add-part-btn' onClick={()=>addPartBtnClick()} ><FiPlus className='add-part-btn-i'/></button>
                       </div>
                </div>
                
@@ -43,6 +80,10 @@ const Expense = () => {
                           </div>
                      </div>
                </div>
+
+               {/* expense popup */}
+               
+          
        
            </div>
            

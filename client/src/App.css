@@ -54,6 +54,7 @@ html, body {
 
 .navbar-links button {
   color: black;
+  font-family: "DM Sans", sans-serif;     
   font-size: 1rem;
   padding: 0.8rem 1rem;
   background-color : white;

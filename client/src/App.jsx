@@ -1,19 +1,26 @@
-import {BrowserRouter as Router , Routes , Route} from "react-router-dom";
-import './App.css';
-import Expense from "./components/Expense";
+import React from 'react'
+import Expense from "./components/Expense" ;
+import Login from "./components/Login";
+import Register from "./components/Register" ;
+import Popup from "./components/Popup" 
+import { BrowserRouter as Router , Routes , Route} from 'react-router-dom';
 
-function App() {
+
+const App = () => {
   return (
     <>
-<Router> {/* Use BrowserRouter (aliased as Router) to wrap your Routes */}
-      <Routes>
-        <Route path="/" element={<Expense />} /> {/* Corrected `path` instead of `put` */}
-      </Routes>
-    </Router>
-
-    
+      <Router>
+        <Routes>
+            <Route path='/' element ={<Expense />}  />
+            <Route path='/login' element ={<Login />} />
+            <Route path='/popup' element={<Popup/>} />
+            <Route path='/register' element={<Register />} />
+        
+            
+        </Routes>
+      </Router>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
