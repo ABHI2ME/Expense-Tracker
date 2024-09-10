@@ -1,19 +1,42 @@
-import React  from 'react';
+import React, { useState }  from 'react';
 import './logins.css';
 import {useNavigate} from "react-router-dom";
+import axios from "axios" ;
 
 
 
 function Login() {
+  const navigate = useNavigate() ;
+  const [email , setEmail] = useState("") ;
+  const [password , setPassword] = useState("") ;
 
+  async function toLogin(){
+     try{
+       const response = await axios.post('http://localhost:5000/login' , {email , password}) ;
+       console.log(response) ;
+       if(response.data.message === "user is registered"){
+         navigate("/") ;
+       }
+       else if(response.data.message === "User not found"){
+         alert("user not found") ;
+       }
+       else if(response.data.message === "Wrong password"){
+          alert("wrong password") ;
+       }
+       else if(response.data.message === "Invalid credentials"){
+        alert("invalid credentials") ;
+       }
+     }catch(error){
+      console.log(error) ;
+      }  
+ 
 
-const navigate = useNavigate();
+  }
 
-const   onSignUpClick = () =>{
+  function onSignUpClick(){
+      navigate("/register")  ;
+  } ;
 
-navigate('/register');
-
-}
 
 
 
@@ -24,33 +47,33 @@ navigate('/register');
 
   <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
 
-   <div class="signin"> 
+   <div className="signin"> 
 
-    <div class="content"> 
+    <div className="content"> 
 
      <h2>Sign In</h2> 
 
-     <div class="form"> 
+     <div className="form"> 
 
-      <div class="inputBox"> 
+      <div className="inputBox"> 
 
-       <input type="text" required /> <i>Email</i> 
-
-      </div> 
-
-      <div class="inputBox"> 
-
-       <input type="password" required /> <i>Password</i> 
+       <input type="text" required onChange={(e)=>setEmail(e.target.value)} /> <i>Email</i> 
 
       </div> 
 
-      <div class="links"><button className='buttonstyling' onClick={() => onSignUpClick()}>Signup</button> 
+      <div className="inputBox"> 
+
+       <input type="password" required onChange={(e)=>setPassword(e.target.value)} /> <i>Password</i> 
 
       </div> 
 
-      <div class="inputBox"> 
+      <div className="links"><button className='buttonstyling' onClick={() => onSignUpClick()}>Signup</button> 
 
-       <input type="submit" value="Login" /> 
+      </div> 
+
+      <div className="inputBox"> 
+
+       <input type="submit" onClick={toLogin} value="Login" /> 
 
       </div> 
 
@@ -63,10 +86,6 @@ navigate('/register');
   </section> 
 
 
-
-
-	
-	
 	</>
   );
 }

@@ -1,18 +1,24 @@
-const mongoose = require('mongoose');
-const colors = require('colors');
+const mongoose = require('mongoose') ;
+const cors = require('cors') ;
+const validator  = require('validator') ;
 
-require('dotenv').config();
+const registerSchema = new mongoose.Schema({
+    name: {
+        type : String , 
+        required : true 
+    } ,
+    email: {
+       type : String , 
+       required : true , 
+       unique : true , 
+       validate: [validator.isEmail, 'Invalid email']
+    } , 
+    password: {
+        type : String , 
+        required : true 
+    }
+})
 
-const connectDb = async () => {
-try {
-    
-await mongoose.connect(process.env.MONGO_URL)
-console.log('connect to mongo db database'.magenta.bgGreen);
+const registerModel = mongoose.model("Register" , registerSchema) ;
 
-} catch (error) {
-    console.log(`${error}`.bgRed.white);
-}
-
-}
-
-module.exports = connectDb
+module.exports = registerModel ;
