@@ -1,7 +1,9 @@
-import React, { useState }  from 'react';
+import React, { useState  , useContext}  from 'react';
 import './logins.css';
 import {useNavigate} from "react-router-dom";
 import axios from "axios" ;
+// import { Authenticate } from "./Authenticate"; 
+// import { useAuth } from './Authenticate';
 
 
 
@@ -9,13 +11,23 @@ function Login() {
   const navigate = useNavigate() ;
   const [email , setEmail] = useState("") ;
   const [password , setPassword] = useState("") ;
+  // const { isAuthenticate, login, logout } = useContext(Authenticate); 
+  // const {login} = useAuth() ; 
 
   async function toLogin(){
      try{
        const response = await axios.post('http://localhost:5000/login' , {email , password}) ;
        console.log(response) ;
-       if(response.data.message === "user is registered"){
+       if(response.data.message === "User is registered"){
+         console.log(typeof(response.data.userId) , typeof(response.data.email)) ;
+         const userId = response.data.userId ;
+         const userEmail = response.data.email ;
          navigate("/") ;
+        //  login(userEmail , userId) ;
+         localStorage.setItem( "login" , JSON.stringify(true)  );
+         localStorage.setItem( "email" , JSON.stringify(userEmail)) ;
+         localStorage.setItem("userId" , JSON.stringify(userId)) ;
+         
        }
        else if(response.data.message === "User not found"){
          alert("user not found") ;

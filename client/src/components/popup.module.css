@@ -25,6 +25,8 @@
   }
   
   .navbar {
+    position: fixed;
+    top: 0;
     display: flex;
     height: 4.6rem;
     justify-content: space-between;
@@ -47,6 +49,16 @@
     display: flex;
     align-items: center; /* Centers links and buttons vertically */
     gap: 1rem;
+  }
+
+  .navbar-links-a{
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem; /* Add padding to make it look like a button */
+    background: none;
+    border: none;
   }
   
   .navbarLinks a {

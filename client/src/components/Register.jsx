@@ -17,18 +17,21 @@ const navigate = useNavigate();
       password : password 
     }
 
-    function toRegister(){
+    async  function toRegister(){
        
-      axios.post("http://localhost:5000/register" , data)
-      .then((response)=>{
+         try{
+          const response = await axios.post("http://localhost:5000/register" , data) ;
           console.log(response) ;
-          navigate("/login") ;
-      })
-      .catch((error)=>{
-         alert("error occured while registring") ;
-         console.log(error)
-      }) ;
+          if(response.data.message === "user already registred"){
+             alert("user already registred") ;
+          }
+          else{
+            navigate('/login') ;
+          }
+         }catch(error){
 
+         }
+    
 
         console.log(name , email , password) ;
        

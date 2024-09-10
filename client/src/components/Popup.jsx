@@ -2,7 +2,9 @@ import React , {useEffect, useState , createContext , useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiPlus } from "react-icons/fi";
 import styles from './popup.module.css';
-import {Context} from "./Context"
+// import {Context} from "./Context";
+// import { Authenticate  , useAuth } from "./Authenticate";  
+import axios from "axios" ;
 
 
 
@@ -10,7 +12,11 @@ const Popup = () => {
    const navigation = useNavigate() ; 
    const [descriptition , setDescription] = useState("") ;
    const [amount , setAmount] = useState("") ;
-   const {details  , setDetails} = useContext(Context) ;
+  //  const {details  , setDetails} = useContext(Context) ;
+  //  const { isAuthenticate, login, logout , email , userId } = useContext(Authenticate); 
+  //  const {email , userId } = useAuth() ;
+   const userId = JSON.parse(localStorage.getItem("userId")) ;
+   const email = JSON.parse(localStorage.getItem("email"))
 
    
    function saveDetails(){
@@ -34,7 +40,7 @@ const Popup = () => {
          }
          console.log(descr,  amt) ;
         //  setDetails((PriviousDetail)=>[...PriviousDetail , val]) ;
-         setDetails(val) ;
+        //  setDetails(val) ;
          setDescription("") ;
          setAmount("") ;
         //  setTimeout(() => {
@@ -48,8 +54,53 @@ const Popup = () => {
           navigation("/" )}, 100);
         }
           
-         console.log("from popup " , details);
+        //  console.log("from popup " , details);
       }
+   }
+
+  async function sendData(val , userId){
+     try{
+        const response = await axios.put('http://localhost:5000/user' , {val , userId}) ;
+        console.log(response) ;
+     }catch(error){
+        console.log(error) ;
+     }
+  }
+
+   function save(){
+     
+      let descr ;
+      let amt ;
+      let val ;
+      let date = new Date() ;
+      const day = date.getDate() ;
+      const month = date.toLocaleString('default', { month: 'short' });
+      const year  = date.getFullYear();
+      const exactTime = date.getMilliseconds() ;
+      let moment = `${day}-${month}-${year}` ;
+      if(descriptition !== "" && amount !== ""){
+        descr = descriptition ;
+        amt = amount ;
+        val = {
+            descriptition : descr , 
+            amount :  amt , 
+            time : moment , 
+            watch : exactTime 
+        }
+
+        sendData(val , userId) ;
+
+      
+        setDescription("") ;
+        setAmount("") ;
+
+         setTimeout(() => {
+         navigation("/" )}, 100);
+       }
+         
+       
+     
+    
    }
    
 
@@ -85,7 +136,7 @@ const Popup = () => {
                 <div className={styles.popupAmount}>
                   <input type='number' value={amount} onChange={(e)=>setAmount(e.target.value)}   placeholder='enter the amount spent' className={styles.popupAmountInput} />
                 </div>
-                <button className={styles.popupSubmit}  onClick={()=>saveDetails()}>Submit</button>
+                <button className={styles.popupSubmit}  onClick={()=>save()}>Submit</button>
           </div>
           <div className={styles.popup2}>
             <img className={styles.popup2Img} src='../images/img1.jpg' alt='image' />

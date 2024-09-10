@@ -16,7 +16,17 @@ const registerSchema = new mongoose.Schema({
     password: {
         type : String , 
         required : true 
-    }
+    } , 
+    
+    details : [
+        {
+            descriptition: String,
+            amount: Number,
+            time: String,
+            watch: Number
+          }
+    ]
+
 })
 
 const registerModel = mongoose.model("Register" , registerSchema) ;
